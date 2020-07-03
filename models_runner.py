@@ -5,9 +5,21 @@ import os
 import time
 
 BATCH_SIZE = 64
+BOOK_FILE_ID = {'0':'dorian_gray',
+                '1':'war_peace',
+                '2':'don_quixote',
+                '3':'karamazov_brothers',
+                '4':'metamorphosis'}
 
-def process_text():
-	url = 'https://www.gutenberg.org/files/174/174.txt'
+GUTENBERG_LINK = {'0':'https://www.gutenberg.org/files/174/174.txt',
+                '1':'https://www.gutenberg.org/files/2600/2600-0.txt',
+                '2':'https://www.gutenberg.org/files/996/996-0.txt',
+                '3':'https://www.gutenberg.org/files/28054/28054-0.txt',
+                '4':'https://www.gutenberg.org/files/5200/5200.txt'}
+
+
+def process_text(id):
+	url = GUTENBERG_LINK[id]
 	text = urlopen(url).read().decode(encoding='utf-8')
 	# length of text is the number of characters in it
 	print ('Length of text: {} characters'.format(len(text)))
@@ -25,11 +37,12 @@ def process_text():
 
 
 #TODO: add books
-def generate_text(start_string):
-  model = tf.keras.models.load_model('./models/dorian_model')
+def generate_text(start_string,book_id):
+  file_dir = './models/' + BOOK_FILE_ID[book_id]
+  model = tf.keras.models.load_model(file_dir)
 
   # Get Text vars:
-  char2idx, idx2char = process_text()
+  char2idx, idx2char = process_text(book_id)
 
   # Number of characters to generate
   num_generate = 1000

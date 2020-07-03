@@ -12,9 +12,9 @@ def home():
 @app.route('/generate-text', methods=['GET'])
 def api_all():
     query_parameters = request.args
-    text = models_runner.generate_text(query_parameters.get('seed'))
+    text = models_runner.generate_text(query_parameters.get('seed'),query_parameters.get('book'))
     output = {'text':text}
     return output
 
 if __name__ == '__main__':
-	app.run(debug=True, port=8080)
+	app.run(debug=True)
