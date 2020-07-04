@@ -38,7 +38,7 @@ def process_text(id):
 
 #TODO: add books
 def generate_text(start_string,book_id):
-  file_dir = './models/' + BOOK_FILE_ID[book_id]
+  file_dir = './models/' + BOOK_FILE_ID[book_id] + '.h5'
   model = tf.keras.models.load_model(file_dir)
 
   # Get Text vars:
@@ -77,4 +77,20 @@ def generate_text(start_string,book_id):
       text_generated.append(idx2char[predicted_id])
 
   return (start_string + ''.join(text_generated))
+
+
+'''
+#==============================================
+def main():
+  file_dir = './models/' + 'metamorphosis'
+  model = tf.keras.models.load_model(file_dir)
+  print('LOADING and saving....')
+  model.save("metamorphosis.h5")
+
+if __name__ == '__main__':
+  main()
+'''
+
+
+
 
